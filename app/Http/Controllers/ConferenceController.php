@@ -37,4 +37,13 @@ class ConferenceController extends Controller
     {
         return new ConferenceResource($conference);
     }
+
+    public function update(Request $request, Conference $conference)
+    {
+        $data = $request->validate([
+            'name' => 'required|string|max:50'
+        ]);
+
+        $conference->update($data);
+    }
 }
