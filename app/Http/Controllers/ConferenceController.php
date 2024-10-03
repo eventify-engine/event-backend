@@ -4,13 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ConferenceResource;
 use App\Models\Conference;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class ConferenceController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return ConferenceResource::collection(Conference::all());
+        $data = $request->validate([
+            'search' => 'nullable|string|max:255'
+        ]);
+
+        $query = Conference::query();
+
+        $query->when($data['search'] ?? false, fn(Builder $when) => $when
+            ->where('name', 'LIKE', "%{$data['search']}%")
+        );
+
+        return ConferenceResource::collection($query->get());
     }
 
     public function store(Request $request)
