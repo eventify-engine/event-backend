@@ -46,4 +46,9 @@ class ConferenceController extends Controller
 
         $conference->update($data);
     }
+
+    public function destroy(Conference $conference)
+    {
+        $conference->delete();
+    }
 }
