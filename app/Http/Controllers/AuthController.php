@@ -33,9 +33,11 @@ class AuthController extends Controller
             'password' => 'required|string|confirmed|min:8|max:255'
         ]);
 
-        User::create([
+        $user = User::create([
             ...$data,
             'email' => Str::lower($data['email'])
         ]);
+
+        return new JsonResource(['token' => $user->createToken('primary', expiresAt: now()->addDays(31))->plainTextToken]);
     }
 }
