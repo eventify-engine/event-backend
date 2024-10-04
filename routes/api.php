@@ -16,7 +16,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('conferences/host-prefix', [ConferenceController::class, 'hostPrefix']);
     Route::apiResource('conferences', ConferenceController::class);
 
-    Route::apiResource('events', EventController::class);
+    Route::apiResource('conferences.events', EventController::class);
 });
 
 Route::prefix('conference')->group(function () {
