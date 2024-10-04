@@ -22,7 +22,9 @@ class EventController extends Controller
             ->where('name', 'LIKE', "%{$data['search']}%")
         );
 
-        return EventResource::collection($query->get());
+        return EventResource::collection($query->get())->additional([
+            'total' => $conference->events()->count()
+        ]);
     }
 
     public function store(Request $request, Conference $conference)

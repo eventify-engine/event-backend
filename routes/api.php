@@ -5,6 +5,7 @@ use App\Http\Controllers\ConferenceController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Conference;
+use App\Http\Controllers\ThreadController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('login', [AuthController::class, 'login']);
@@ -17,6 +18,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('conferences', ConferenceController::class);
 
     Route::apiResource('conferences.events', EventController::class);
+
+    Route::apiResource('conferences.events.threads', ThreadController::class);
 });
 
 Route::prefix('conference')->group(function () {
